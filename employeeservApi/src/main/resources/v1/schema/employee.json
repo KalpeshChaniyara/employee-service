@@ -1,0 +1,71 @@
+{
+  "title": "Employee resource",
+  "description": "Employee resource object",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "employee id",
+      "type": "integer"
+    },
+    "first_name": {
+      "description": "first name",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "last_name": {
+      "description": "last name",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "date_of_birth": {
+      "description": "date of birth",
+      "type": "string",
+      "format" : "date"
+    },
+    "address" : {
+      "description": "address",
+      "type": "object",
+      "properties": {
+        "line1" : {
+          "description": "line 1 of address",
+          "type": "string"
+        },
+        "line2" : {
+          "description": "line 2 of address",
+          "type": "string"
+        },
+        "city" : {
+          "description": "city",
+          "type": "string"
+        },
+        "state" : {
+          "description": "state",
+          "type": "string"
+        },
+        "country" : {
+          "description": "city",
+          "type": "string"
+        },
+        "zip_code" : {
+          "description": "city",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "line1",
+        "city",
+        "state",
+        "country",
+        "zip_code"
+      ]
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "date_of_birth",
+    "address"
+  ]
+}
