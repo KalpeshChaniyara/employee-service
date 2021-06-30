@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @AutoConfigureMockMvc
 @SpringBootTest(classes = {EmployeeservApplication.class})
@@ -49,6 +50,7 @@ public class EmployeeServTests {
     private ResultActions performCreateEmployee(Employee employee) throws Exception {
         return mockMvc.perform(post("/v1/bfs/employees")
                 .contentType(MediaType.APPLICATION_JSON)
+                .header("idempotency-key", UUID.randomUUID().toString())
                 .content(objectMapper.writeValueAsString(employee)));
     }
 
@@ -81,7 +83,9 @@ public class EmployeeServTests {
     @Test
     void positiveTest() throws Exception {
         final Employee employee = createEmployee("Kalpesh", "Chaniyara", 1987, 04, 05, "A 401, Kalpataru Harmony", "Pune", "Maharashtra", "India", 411057, null);
-        performCreateEmployee(employee).andExpect(status().isCreated());
+        final ResultActions resultActions = performCreateEmployee(employee);
+        resultActions
+                .andExpect(status().isCreated());
     }
 
     @Test
