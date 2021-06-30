@@ -78,13 +78,8 @@ public class EmployeeServTests {
 
     @Test
     void positiveTest() {
-        final ResponseEntity<Integer> createResponseEntity = employeeResource.create(new Employee().withFirstName("Kalpesh")
-                .withLastName("Chaniyara")
-                .withDateOfBirth(LocalDate.of(1987, 04, 05))
-                .withAddress(new Address().withLine1("A 401, Kalpataru Harmony")
-                        .withCity("Pune")
-                        .withState("Maharashtra")
-                        .withCountry("India").withZipCode(411057)));
+        final Employee employee = createEmployee("Kalpesh", "Chaniyara", 1987, 04, 05, "A 401, Kalpataru Harmony", "Pune", "Maharashtra", "India", 411057);
+        final ResponseEntity<Integer> createResponseEntity = employeeResource.create(employee);
         Assert.assertEquals(HttpStatus.CREATED.value(), createResponseEntity.getStatusCodeValue());
         Assert.assertTrue(createResponseEntity.getBody() > 0);
 
